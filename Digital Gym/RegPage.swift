@@ -9,14 +9,12 @@
 import Foundation
 import UIKit
 
-
 class RegPage: UIViewController, UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
     @IBAction func createAccountPressed(_ sender: Any) {
         
         //create user
@@ -27,7 +25,8 @@ class RegPage: UIViewController, UITextFieldDelegate{
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "TabBarController")
                 self.navigationController?.pushViewController(vc, animated: true)
-            }else{
+            }
+            else {
                 self.alert(message: user.message!)
             }
         }
