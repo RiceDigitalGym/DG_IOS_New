@@ -1,6 +1,7 @@
 
 import UIKit
 import AVFoundation
+import UserNotifications
 
 class ScanController: UIViewController {
     
@@ -12,25 +13,16 @@ class ScanController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
     
-    private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
-                                      AVMetadataObject.ObjectType.code39,
-                                      AVMetadataObject.ObjectType.code39Mod43,
-                                      AVMetadataObject.ObjectType.code93,
-                                      AVMetadataObject.ObjectType.code128,
-                                      AVMetadataObject.ObjectType.ean8,
-                                      AVMetadataObject.ObjectType.ean13,
-                                      AVMetadataObject.ObjectType.aztec,
-                                      AVMetadataObject.ObjectType.pdf417,
-                                      AVMetadataObject.ObjectType.itf14,
-                                      AVMetadataObject.ObjectType.dataMatrix,
-                                      AVMetadataObject.ObjectType.interleaved2of5,
-                                      AVMetadataObject.ObjectType.qr]
+    private let supportedCodeTypes = [AVMetadataObject.ObjectType.qr]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back)
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+        })
 
         
         guard let captureDevice = deviceDiscoverySession else {
@@ -88,7 +80,6 @@ class ScanController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     // MARK: - Helper methods
     
     func launchApp(decodedURL: String) {
@@ -114,7 +105,6 @@ class ScanController: UIViewController {
 //
 //        present(alertPrompt, animated: true, completion: nil)
     }
-    
 }
 
 extension ScanController: AVCaptureMetadataOutputObjectsDelegate {
@@ -137,7 +127,27 @@ extension ScanController: AVCaptureMetadataOutputObjectsDelegate {
             
             if metadataObj.stringValue != nil {
                 launchApp(decodedURL: metadataObj.stringValue!)
-                messageLabel.text = metadataObj.stringValue
+                messageLabel.text = "Your BikeID is " + metadataObj.stringValue! + ". Redirecting you."
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { //adding delay so that it is not immediate
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "LiveDataController")
+                    self.navigationController?.pushViewController(vc, animated: false)
+                }
+                
+                let machineID = Int(metadataObj.stringValue!) //this is bikeid
+                Hardware.machineID = machineID //you want bikeid variable accessible to all files in the project so you make it global
+                
+                let content = UNMutableNotificationContent()
+                content.title = "It has been a full day since your last scan."
+                content.body = "Scan today to update your workout stats"
+                content.badge = 1
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+                let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+             
             }
         }
     }

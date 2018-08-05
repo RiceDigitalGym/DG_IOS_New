@@ -8,15 +8,23 @@
 
 import Foundation
 import UIKit
+import PromiseKit
 
 class ProfileController: UIViewController{
     @IBOutlet weak var name: UILabel!
-    
     @IBOutlet weak var email: UILabel!
+    @IBOutlet weak var SerialNumberInput: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        name.text = "Name: \(global_user.name!)"
-        email.text = "Email: \(global_user.email!)"
-
+        
     }
+    
+
+
+    
 }
+
+
+

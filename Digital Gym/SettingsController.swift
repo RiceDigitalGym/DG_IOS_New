@@ -12,5 +12,16 @@ import UIKit
 
 class SettingsController: UIViewController{
     
-   
+    @IBAction func LogOut(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "IsLoggedIn")
+    }
+    
+    @IBAction func deleteAccount(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "IsLoggedIn")
+        
+    }
+    
+    
 }
+
+
