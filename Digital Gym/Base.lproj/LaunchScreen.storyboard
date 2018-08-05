@@ -18,19 +18,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bikepic" translatesAutoresizingMaskIntoConstraints="NO" id="QJQ-ts-rje">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bikepic" translatesAutoresizingMaskIntoConstraints="NO" id="QJQ-ts-rje">
                                 <rect key="frame" x="103" y="251" width="168" height="165"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="168" id="6jv-wf-iuI"/>
+                                    <constraint firstAttribute="height" constant="165" id="8SW-lq-d99"/>
+                                </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=" DIGITAL GYM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TB0-HW-PCb">
-                                <rect key="frame" x="60" y="439" width="255" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TB0-HW-PCb">
+                                <rect key="frame" x="60" y="433" width="255" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="S8W-S8-iE0"/>
+                                    <constraint firstAttribute="width" constant="255" id="r0b-1i-wiK"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content=" DIGITAL GYM">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="29" name="OpenSans-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745100000001" green="0.17254901959999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="QJQ-ts-rje" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="187-e5-3qU"/>
+                            <constraint firstItem="QJQ-ts-rje" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2OH-PP-9j2"/>
+                            <constraint firstItem="TB0-HW-PCb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gnB-3I-vNN"/>
+                            <constraint firstItem="TB0-HW-PCb" firstAttribute="top" secondItem="QJQ-ts-rje" secondAttribute="bottom" constant="17" id="mJy-DK-RAo"/>
+                            <constraint firstItem="QJQ-ts-rje" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="toa-sw-7ve"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
